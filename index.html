@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulate BSOD</title>
+    <style>
+        /* Default styles for the BSOD */
+        body.bsod {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            font-family: "Consolas", "Courier New", monospace;
+            background-color: #0000aa;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .bsod h1 {
+            font-size: 10vw;
+        }
+
+        .bsod h2 {
+            font-size: 3vw;
+        }
+
+        .bsod p {
+            font-size: 1.5vw;
+        }
+    </style>
+</head>
+<body>
+    <script>
+        // Function to simulate BSOD
+        function simulateBSOD() {
+            // Add BSOD styling
+            document.body.classList.add('bsod');
+            document.body.innerHTML = `
+                <div class="bsod">
+                    <h1>:(</h1>
+                    <h2>Your PC ran into a problem and needs to restart.</h2>
+                    <p>We're just collecting some error info, and then we'll restart for you.</p>
+                    <p>If you'd like to know more, you can search online later for this error: <strong>UNEXPECTED_ERROR</strong></p>
+                </div>
+            `;
+
+            // Fullscreen functionality
+            const requestFullscreen = document.documentElement.requestFullscreen 
+                                    || document.documentElement.mozRequestFullScreen 
+                                    || document.documentElement.webkitRequestFullscreen 
+                                    || document.documentElement.msRequestFullscreen;
+
+            if (requestFullscreen) {
+                requestFullscreen.call(document.documentElement).catch((err) => {
+                    console.error("Fullscreen request failed:", err);
+                });
+            } else {
+                console.warn("Fullscreen API not supported by this browser.");
+            }
+        }
+
+        // Function to show a popup and start BSOD simulation
+        function showPopUp() {
+            // Prompt user for confirmation
+            if (confirm("Simulate a BSOD?")) {
+                simulateBSOD();
+            }
+        }
+
+        // Trigger on window load
+        window.onload = function() {
+            showPopUp();
+        };
+    </script>
+</body>
+</html>
